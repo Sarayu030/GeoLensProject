@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            float: left;
+            position: relative;
+        }
+        .custom-marker {
+            width: 60px; /* Adjust size as needed */
+            height: 60px; /* Adjust size as needed */
+            background-size: cover;
+            transition: transform 0.5s; /* Smooth transition on hover */
+        }
+        .custom-marker:hover {
+            transform: scale(1); /* Enlarge the image on hover */
+        }
+        .image-info {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        .custom-marker:hover + .image-info {
+            display: block;
+        }
+    </style>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW1-vefloNz3YIM8jzfvsR5W5z5kDd6A8&callback=initMap"></script>
+    <script>
+        var map;
+
+        function initMap() {
+            var latitude = parseFloat(document.getElementById('map').getAttribute('data-latitude'));
+            var longitude = parseFloat(document.getElementById('map').getAttribute('data-longitude'));
+            var image_path = "{{ path }}"; // Get the image path from Flask
+            var timestamp = "{{ timestamp }}"; // Get the timestamp from Flask
+            var location = "{{ location }}"; // Get the location from Flask
+
+            if (isNaN(latitude) || isNaN(longitude)) {
+                alert("Invalid latitude or longitude.");
+                return;
+            }
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: { lat: latitude, lng: longitude }
+            });
+
+            var marker = new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+                map: map
+            });
+
+            marker.addListener('mouseover', function() {
+                var content = '<div><img src="' + image_path + '" width="200"><br>';
+                content += 'Latitude: ' + latitude + '<br>';
+                content += 'Longitude: ' + longitude + '<br>';
+                content += 'Timestamp: ' + timestamp + '<br>';
+                content += 'Location: ' + location + '</div>';
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: content
+                });
+
+                infoWindow.open(map, marker);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="map" data-latitude="{{latitude}}" data-longitude="{{longitude}}"></div>
+
+    <div class="image-info"></div>
+</body>
+</html>

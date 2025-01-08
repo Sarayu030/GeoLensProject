@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        p 
+        {
+            border-style: solid black;
+            color: white;
+            background-color: rgb(93, 176, 220);
+            box-shadow: 0px 1px 1px 2px rgb(0,0,0);
+        }
+        body {
+                position: relative;
+                overflow: hidden;
+        }
+        body {
+
+            background-image: url({{path}});
+            background-repeat: no-repeat;
+            background-size: cover;
+            max-width: auto;   
+            width: 100%;           
+            
+            
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>
+            <p>GEOTAGGING FOR PICTURES</p>
+        </h1>
+        <br>
+        <form method='POST' enctype='multipart/form-data'>
+            {{form.hidden_tag()}}
+            {{form.file()}}
+            {{form.submit()}}
+        </form>
+    </center>
+
+   
+</body>
+</html>
