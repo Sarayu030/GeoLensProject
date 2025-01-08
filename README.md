@@ -1,1 +1,1 @@
-# GeoLensProject
+A geotagging tool developed to extract and visualize metadata from photos, including date, time, location, city, and state. Built using Python, EXIFTOOL, and the Subprocess module, the tool integrates with the Google Maps API to provide an intuitive user experience. The output is displayed in a web-based interface styled with HTML and CSS, making it easy to explore and map photo metadata. GEolens serves as an efficient tool for photographers and enthusiasts looking to organize and analyze their photo collections.
